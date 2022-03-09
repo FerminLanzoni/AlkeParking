@@ -22,3 +22,5 @@ Consigna 2 Para satisfacer el requerimiento, incluye una propiedad type en el fu
 
  Respuesta 3 B) En kotlin un valor nullable lo indicamos con el simbolo de interrogacion(?) en el tipo de la variable
  en este caso: discountCard : String?
+
+ TODO"TRADUCIR A INGLES"
