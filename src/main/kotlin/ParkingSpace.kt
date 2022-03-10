@@ -5,7 +5,20 @@ data class ParkingSpace(var vehicle: Vehicle, val checkInTime: Calendar){
     val parkedTime: Long
         get() = (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis) / MINUTES_IN_MILISECONDS
 
+    fun checkOutVehicle(plate: String) {
+
+    }
+
+    fun onSuccess(pago: Int) {
+
+    }
+
+    fun onError() {
+
+    }
+
     companion object{
         const val MINUTES_IN_MILISECONDS = 1000
     }
+
 }

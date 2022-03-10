@@ -36,6 +36,16 @@ fun main(args: Array<String>) {
 
     println(parking.vehicles.size)
 
+//    parking.vehicles.remove(moto)
+    parking.removeVehicle(moto)
+
+    parking.espacio.forEach{
+        println(it.plate)
+    }
+
+    println(parking.vehicles.size)
+    println(parking.espacio.size)
+
 
 //    val car2 =  Vehicle("AA111AA", VehicleType.CAR, Calendar.getInstance(), "DISCOUNT_CARD_001")
 //    parking.addVehicle(car2)
