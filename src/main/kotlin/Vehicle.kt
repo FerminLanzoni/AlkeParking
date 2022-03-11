@@ -1,5 +1,6 @@
 import java.util.*
 
+//The Vehicle class is the class in charge of create vehicles and their attributes
 data class Vehicle(val plate: String, val type: VehicleType, val checkInTime: Calendar, var discountCard: String? = null) {
 
     //Function states that two Vehicles are equal if their plates are equal
