@@ -3,12 +3,11 @@ import java.util.*
 data class Parking(val vehicles: MutableSet<Vehicle>) {
 
     val parkingLimit = 20
-    var espacio = mutableListOf<ParkingSpace>()
+    var summary: Pair<Int,Int> = Pair(0,0)
 
     fun addVehicle(vehicle: Vehicle): Boolean =
         if (vehicles.size >= parkingLimit) false else {
             vehicles.add(vehicle)
-            espacio.add(ParkingSpace(vehicle, Calendar.getInstance()))
             true
         }
 
@@ -21,24 +20,24 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
     }
 
     fun removeVehicle(vehicle: Vehicle) {
-        vehicles.remove(vehicle)
-        var index = 0
-        var result = -1
-        espacio.forEach {
-            index ++
-            if (it.plate == vehicle.plate) {
-                result = index
-            }
-        }
-        if (result != -1) {
-            espacio.get(result).checkOutVehicle(vehicle.plate)
-            espacio.remove(espacio.get(result))
+        val parkingSpace = ParkingSpace(vehicle, vehicle.checkInTime)
+        val checkoutVehicle = parkingSpace.checkOutVehicle(vehicle.plate, true)
+        if (vehicles.contains(vehicle)) {
+            summary = summary.copy(first = summary.first + 1, second = summary.second + checkoutVehicle)
+            println(summary)
+            vehicles.remove(vehicle)
+        }else {
+            parkingSpace.checkOutVehicle(vehicle.plate, false)
         }
     }
 
-    init {
+    fun earningsInfo() {
+        println("${summary.first} vehicles have checked out and have earnings of $${summary.second}")
+    }
+
+    fun listVehicles() {
         vehicles.forEach {
-            espacio.add(ParkingSpace(it, Calendar.getInstance()))
+            println(it.plate)
         }
     }
 

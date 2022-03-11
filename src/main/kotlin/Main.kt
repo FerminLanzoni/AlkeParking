@@ -1,4 +1,5 @@
 import java.util.Calendar
+import java.util.logging.Handler
 
 fun main(args: Array<String>) {
 
@@ -34,17 +35,27 @@ fun main(args: Array<String>) {
         parking.checkIn(item)
     }
 
-    println(parking.vehicles.size)
+//    println(parking.vehicles.size)
 
 //    parking.vehicles.remove(moto)
-    parking.removeVehicle(moto)
 
-    parking.espacio.forEach{
-        println(it.plate)
-    }
+    parking.earningsInfo()
 
-    println(parking.vehicles.size)
-    println(parking.espacio.size)
+    parking.removeVehicle(car)
+    parking.removeVehicle(bus4)
+    parking.removeVehicle(minibus5)
+
+    parking.earningsInfo()
+
+    parking.listVehicles()
+
+
+//    parking.espacio.forEach{
+//        println(it.plate)
+//    }
+
+//    println(parking.vehicles.size)
+//    println(parking.espacio.size)
 
 
 //    val car2 =  Vehicle("AA111AA", VehicleType.CAR, Calendar.getInstance(), "DISCOUNT_CARD_001")
