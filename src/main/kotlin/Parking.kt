@@ -2,33 +2,58 @@ import java.util.*
 
 data class Parking(val vehicles: MutableSet<Vehicle>) {
 
-    val parkingLimit = 20
-    var summary: Pair<Int,Int> = Pair(0,0)
+    private val parkingLimit = 20
+    private var summary: Pair<Int, Int> = Pair(0, 0)
+    var parkingSpaceList: MutableList<ParkingSpace> = mutableListOf()
 
-    fun addVehicle(vehicle: Vehicle): Boolean =
-        if (vehicles.size >= parkingLimit) false else {
-            vehicles.add(vehicle)
-            true
+    init {
+        vehicles.forEach {
+            parkingSpaceList.add(ParkingSpace(it, Calendar.getInstance()))
         }
+    }
 
-    fun checkIn(newVehicle: Vehicle) {
+    fun addVehicle(newVehicle: Vehicle) {
         when {
             vehicles.contains(newVehicle) -> println("Sorry, the has check-in failed")
-            addVehicle(newVehicle) -> println("Welcome to AlkeParking!")
-            else -> println("Sorry, the check-in failed")
+            vehicles.size > parkingLimit -> println("Sorry, the check-in failed")
+            else -> {
+                println("Welcome to AlkeParking!")
+                vehicles.add(newVehicle)
+                parkingSpaceList.add(ParkingSpace(newVehicle, Calendar.getInstance()))
+            }
         }
     }
 
     fun removeVehicle(vehicle: Vehicle) {
-        val parkingSpace = ParkingSpace(vehicle, vehicle.checkInTime)
-        val checkoutVehicle = parkingSpace.checkOutVehicle(vehicle.plate, true)
+        val parkingSpace = parkingSpaceList[searchVehicleInParkingSpace(vehicle.plate)]
         if (vehicles.contains(vehicle)) {
-            summary = summary.copy(first = summary.first + 1, second = summary.second + checkoutVehicle)
-            println(summary)
+            val totalPay = parkingSpace.checkOutVehicle()
+            summary = summary.copy(first = summary.first + 1, second = summary.second + totalPay)
             vehicles.remove(vehicle)
-        }else {
-            parkingSpace.checkOutVehicle(vehicle.plate, false)
+            parkingSpaceList.removeAt(searchVehicleInParkingSpace(vehicle.plate))
+            onSuccess(totalPay)
+        } else {
+            onError()
         }
+    }
+
+    private fun onSuccess(totalPay: Int) {
+        println("Your fee is $$totalPay. Come back soon.")
+    }
+
+    private fun onError() {
+        println("Sorry, the check-out failed")
+    }
+
+    private fun searchVehicleInParkingSpace(searchPlate: String): Int {
+        var index = 0
+        for (space in parkingSpaceList) {
+            if (space.plate == searchPlate) {
+                return index
+            }
+            index++
+        }
+        return index
     }
 
     fun earningsInfo() {
@@ -36,7 +61,7 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
     }
 
     fun listVehicles() {
-        vehicles.forEach {
+        parkingSpaceList.forEach {
             println(it.plate)
         }
     }
