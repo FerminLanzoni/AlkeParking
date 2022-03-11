@@ -8,7 +8,7 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
     fun addVehicle(newVehicle: Vehicle) {
         when {
             vehicles.contains(newVehicle) -> println("Sorry, the has check-in failed")
-            vehicles.size > parkingLimit -> println("Sorry, the check-in failed")
+            vehicles.size >= parkingLimit -> println("Sorry, the check-in failed")
             else -> {
                 println("Welcome to AlkeParking!")
                 vehicles.add(newVehicle)

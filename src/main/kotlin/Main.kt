@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
     val car5 = Vehicle("AA111AAA9T", VehicleType.CAR, Calendar.getInstance(), "DISCOUNT_CARD_009")
     val moto5 = Vehicle("B222BBB10", VehicleType.MOTORCYCLE, Calendar.getInstance())
     val minibus5 = Vehicle("AA111AAYYT", VehicleType.MINIBUS, Calendar.getInstance())
-    val bus5 = Vehicle("DD444D12", VehicleType.BUS, Calendar.getInstance(), "DISCOUNT_CARD_010")
+    val bus5 = Vehicle("DD444DDD8", VehicleType.BUS, Calendar.getInstance(), "DISCOUNT_CARD_010")
 
     val bus6 = Vehicle("DD444D12GG", VehicleType.BUS, Calendar.getInstance(), "DISCOUNT_CARD_011")
 
@@ -38,24 +38,26 @@ fun main(args: Array<String>) {
         parking.addVehicle(item)
         println(item.plate)
     }
-
+    println("")
+    println("------------------------------------EARNINGS INITIAL INFO------------------------------------------------")
     parking.earningsInfo()
+    println("")
     println("------------------------------------RESULT THE ADD FIRST CAR ${car.plate}--------------------------------")
     parking.addVehicle(car)
-    println("---------------------------------------------------------------------------------------------------------")
+    println("")
     println("------------------------------------RESULT THE REMOVE FIRST CAR ${car.plate}-----------------------------")
     parking.removeVehicle(car)
-    println("---------------------------------------------------------------------------------------------------------")
+    println("")
     println("------------------------------------RESULT THE REMOVE BUS 4 ${bus4.plate}--------------------------------")
     parking.removeVehicle(bus4)
-    println("---------------------------------------------------------------------------------------------------------")
+    println("")
     println("------------------------------------RESULT THE REMOVE MINUBUS 5 ${bus5.plate}----------------------------")
     parking.removeVehicle(minibus5)
-    println("---------------------------------------------------------------------------------------------------------")
+    println("")
 
-    println("------------------------------------EARNINGS INFO--------------------------------------------------------")
+    println("------------------------------------EARNINGS FINAL INFO--------------------------------------------------")
     parking.earningsInfo()
-    println("---------------------------------------------------------------------------------------------------------")
+    println("")
 
     println("------------------------------------LIST VEHICLES ${parking.vehicles.size}-------------------------------")
     parking.listVehicles()
